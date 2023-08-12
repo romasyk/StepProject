@@ -1,8 +1,5 @@
 package structure.model;
-<<<<<<< HEAD
 
-public class Flight {
-=======
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -61,5 +58,4 @@ public class Flight {
     public void setSeats(int seats) {
         this.seats = seats;
     }
->>>>>>> main
 }
