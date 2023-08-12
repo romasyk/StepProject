@@ -1,2 +1,4 @@
-package structure.service;public interface BookingService {
+package structure.service;
+
+public interface BookingService {
 }

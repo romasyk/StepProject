@@ -1,2 +1,4 @@
-package structure.controller;public class BookingController {
+package structure.controller;
+
+public class BookingController {
 }

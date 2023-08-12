@@ -1,4 +1,8 @@
 package structure.controller;
 
-public class CustomerController {
+import structure.service.UserService;
+
+public class UserController {
+
+    private UserService userService;
 }

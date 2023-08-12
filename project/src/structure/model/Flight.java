@@ -1,2 +1,4 @@
-package structure.model;public class Flight {
+package structure.model;
+
+public class Flight {
 }

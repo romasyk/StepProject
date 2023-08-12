@@ -1,2 +1,5 @@
-package structure.service;public class DefaultBookingService {
+package structure.service;
+
+public class DefaultBookingService {
+    private UserService userService;
 }

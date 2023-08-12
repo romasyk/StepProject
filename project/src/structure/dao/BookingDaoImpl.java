@@ -1,2 +1,27 @@
-package structure.dao;public class BookingDaoImpl {
+package structure.dao;
+
+import structure.model.Booking;
+import structure.model.Flight;
+import structure.model.User;
+
+import java.util.List;
+
+import static java.util.stream.Collectors.toList;
+
+public class BookingDaoImpl implements BookingDao{
+private List<Booking> bookings;
+
+    @Override
+    public void create(List<User> users, Flight flight) {
+        bookings.add(new Booking(flight,users));
+    }
+
+    @Override
+    public List<Booking> getFlightsByUser(User user) {
+        return bookings.stream()
+                .filter(booking -> booking.getUser().stream()
+                        .anyMatch(u -> u.getPassengerName().equals(user.getPassengerName())
+                                && u.getPassengerSurname().equals(user.getPassengerSurname())))
+                .collect(toList());
+    }
 }
