@@ -16,11 +16,13 @@ import java.util.Scanner;
 
 
 
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Scanner;
 
 import static structure.dao.FlightsDao.flightList;
+
 
 
 public class FlightsController {
@@ -42,9 +44,11 @@ public class FlightsController {
         flightsService.saveFlight(flight3);
         flightsService.saveFlight(flight4);
 
+
         flightList.add(flight1);
         flightList.add(flight2);
         flightList.add(flight3);
+
         Scanner scanner = new Scanner(System.in);
 
         int option = scanner.nextInt();
@@ -68,6 +72,9 @@ public class FlightsController {
             }
 
             boolean flightFound = false;
+
+            for (int i = 0; i < flightsService.getFlights().size(); i++) {
+                Flight flight = flightsService.getFlights().get(i);
 
 
             for (int i = 0; i < flightsService.getFlights().size(); i++) {
@@ -109,6 +116,7 @@ public class FlightsController {
 
     }
 
+
         System.out.println("Enter number of passengers: ");
         int passengers = scanner.nextInt();
 
@@ -123,6 +131,7 @@ public class FlightsController {
                         .filter(flight -> flight.getSeats() >= passengers)
                         .forEach(flightsService::displayFlightInfo);
     }
+
 
 
 

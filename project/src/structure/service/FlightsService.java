@@ -7,13 +7,16 @@ import structure.model.Flight;
 
 import java.time.LocalDate;
 
+
 import structure.model.Destination;
 import structure.model.Flight;
 import structure.model.PlaceOfDeparture;
 
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+
 
 
 public class FlightsService implements FlightsServiceCollection {
@@ -41,6 +44,7 @@ public class FlightsService {
     }
 
     public void flightsWithin24Hours() {
+
     public  void displayFlightInfo(Flight flight) {
             DateTimeFormatter dateTimeFormat = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
 
@@ -75,6 +79,7 @@ public class FlightsService {
     public void saveFlight(Flight flight) {
         flightsdao.saveFlight(flight);
     }
+
 
     @Override
     public List<Flight> getMatchingFlights(String destinationInput, String dateInput, int passengers) {
