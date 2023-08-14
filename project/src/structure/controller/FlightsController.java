@@ -10,9 +10,9 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Scanner;
-import java.util.stream.Collectors;
 
-import static structure.dao.FlightsDao.flightList;
+
+
 
 public class FlightsController {
     private static FlightsService flightsService;
@@ -26,9 +26,12 @@ public class FlightsController {
         Flight flight1 = new Flight(PlaceOfDeparture.KYIV, "A23", LocalDateTime.of(2023, 11, 12, 12, 45), Destination.TOKIO, 150);
         Flight flight2 = new Flight(PlaceOfDeparture.KYIV, "D24", LocalDateTime.of(2023, 9, 1, 20, 00), Destination.BERLIN, 100);
         Flight flight3 = new Flight(PlaceOfDeparture.KYIV, "Q11", LocalDateTime.of(2023, 8, 13, 15, 30), Destination.TOKIO, 150);
-        flightList.add(flight1);
-        flightList.add(flight2);
-        flightList.add(flight3);
+        Flight flight4 = new Flight(PlaceOfDeparture.KYIV, "A23", LocalDateTime.of(2023, 11, 12, 20, 00), Destination.TOKIO, 150);
+
+        flightsService.saveFlight(flight1);
+        flightsService.saveFlight(flight2);
+        flightsService.saveFlight(flight3);
+        flightsService.saveFlight(flight4);
         Scanner scanner = new Scanner(System.in);
 
         int option = scanner.nextInt();
@@ -53,8 +56,8 @@ public class FlightsController {
 
             boolean flightFound = false;
 
-            for (int i = 0; i < flightList.size(); i++) {
-                Flight flight = flightList.get(i);
+            for (int i = 0; i < flightsService.getFlights().size(); i++) {
+                Flight flight = flightsService.getFlights().get(i);
                 if (flight.getId().equals(userInput)) {
                     System.out.println("Flight " + (i + 1) + ":");
                     flightsService.displayFlightInfo(flight);
@@ -68,7 +71,7 @@ public class FlightsController {
         }
     }
 
-    public static List<Flight> findFlightByDetails() {
+    public static void findFlightByDetails() {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Enter destination: ");
@@ -83,18 +86,7 @@ public class FlightsController {
 
         System.out.println("Available flights matching your criteria:");
 
+        List<Flight> a = flightsService.getMatchingFlights(destinationInput, dateInput, passengers);
 
-        List<Flight> matchingFlights = flightList.stream()
-                .filter(flight -> flight.getDestination().toString().equalsIgnoreCase(destinationInput))
-                .filter(flight -> flight.getDateTime().toLocalDate().equals(LocalDate.parse(dateInput)))
-                .filter(flight -> flight.getSeats() >= passengers)
-                .toList();
-
-        if (matchingFlights.isEmpty()) {
-            System.out.println("No flights available for the specified criteria.");
-        } else {
-            matchingFlights.forEach(flightsService::displayFlightInfo);
-        }
-        return matchingFlights;
     }
 }
