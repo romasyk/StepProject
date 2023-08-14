@@ -25,4 +25,13 @@ public class User {
         this.passengerName = passengerName;
         this.passengerSurname = passengerSurname;
     }
+
+
+    public boolean equals(User user) {
+        return (user.getPassengerName().equals(this.passengerName)
+                && user.getPassengerSurname().equals(this.passengerSurname));
+    }
+
+    public User() {
+    }
 }

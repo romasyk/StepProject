@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface BookingDao {
   void create(List<User> users, Flight flight);
-    List<Booking> getFlightsByUser(User user);
-
-
+    List<Booking> getBookingsByUser(User user);
+    List<Booking> getBookings();
+    void removeBooking(int id);
 }

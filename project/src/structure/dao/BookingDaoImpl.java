@@ -17,11 +17,21 @@ private List<Booking> bookings;
     }
 
     @Override
-    public List<Booking> getFlightsByUser(User user) {
+    public List<Booking> getBookingsByUser(User user) {
         return bookings.stream()
                 .filter(booking -> booking.getUser().stream()
                         .anyMatch(u -> u.getPassengerName().equals(user.getPassengerName())
                                 && u.getPassengerSurname().equals(user.getPassengerSurname())))
                 .collect(toList());
+    }
+
+    @Override
+    public List<Booking> getBookings() {
+        return bookings;
+    }
+
+    @Override
+    public void removeBooking(int id) {
+        this.bookings.remove(id);
     }
 }

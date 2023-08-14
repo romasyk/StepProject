@@ -13,12 +13,29 @@ public class CollectionsUserDao implements UserDao {
         return users;
     }
 
-    public void deleteReservationById(String id){
-
+    @Override
+    public User getUserByName(String name, String surname) {
+        name = name.toUpperCase().trim();
+        surname = surname.toUpperCase().trim();
+        for (User user : users) {
+            if (user.getPassengerName().equals(name) && user.getPassengerSurname().equals(surname)) {
+                return user;
+            }
+        }
+        return new User();
     }
-    public String showAllReservations(){
-        return null;
+
+    @Override
+    public User createUser(String name, String surname){
+        return new User(name,surname);
     }
 
+    @Override
+    public void saveUser(String name, String surname) {
+        User user = getUserByName(name, surname);
+       if(!users.contains(user)){
+           users.add(createUser(name, surname));
+       }
+    }
 
 }

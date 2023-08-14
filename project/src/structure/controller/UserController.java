@@ -1,8 +1,12 @@
 package structure.controller;
 
+import structure.model.User;
 import structure.service.UserService;
 
-public class UserController {
+import java.util.Scanner;
 
+public class UserController {
+    Scanner scanner = new Scanner(System.in);
     private UserService userService;
+
 }

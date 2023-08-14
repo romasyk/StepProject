@@ -15,4 +15,14 @@ public class ConsoleUtil {
             }
         }
     }
+    public static String getInputName(Scanner scanner){
+        System.out.println("Введіть ім'я пасажира: ");
+        return  scanner.nextLine().toUpperCase().trim();
+    }
+
+    public static String getInputSurname(Scanner scanner){
+        System.out.println("Введіть прізвище пасажира: ");
+        return scanner.nextLine().toUpperCase().trim();
+    }
+
 }
