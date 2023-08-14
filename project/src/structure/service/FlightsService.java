@@ -1,15 +1,14 @@
 package structure.service;
 
 import structure.dao.FlightsDao;
-import structure.model.Destination;
 import structure.model.Flight;
-import structure.model.PlaceOfDeparture;
+
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
-public class FlightsService {
+public class FlightsService implements FlightsServiceCollection {
 
     private FlightsDao flightsdao;
     public FlightsService(FlightsDao flightsdao) {

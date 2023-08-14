@@ -4,10 +4,13 @@ import structure.model.Destination;
 import structure.model.Flight;
 import structure.model.PlaceOfDeparture;
 import structure.service.FlightsService;
+import structure.utils.ConsoleUtils;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 import static structure.dao.FlightsDao.flightList;
 
@@ -65,7 +68,7 @@ public class FlightsController {
         }
     }
 
-    public static void findFlightByDetails() {
+    public static List<Flight> findFlightByDetails() {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Enter destination: ");
@@ -74,20 +77,24 @@ public class FlightsController {
         System.out.println("Enter date (yyyy-MM-dd): ");
         String dateInput = scanner.nextLine().trim();
 
+
         System.out.println("Enter number of passengers: ");
-        int passengers = scanner.nextInt();
+        int passengers = ConsoleUtils.getInputNumberValue(scanner,  "It's not a number");
 
         System.out.println("Available flights matching your criteria:");
 
 
-        flightList.stream()
-                        .filter(flight -> flight.getDestination().toString()
-                        .equalsIgnoreCase(destinationInput))
-                        .filter(flight -> flight.getDateTime()
-                        .toLocalDate().equals(LocalDate.parse(dateInput)))
-                        .filter(flight -> flight.getSeats() >= passengers)
-                        .forEach(flightsService::displayFlightInfo);
+        List<Flight> matchingFlights = flightList.stream()
+                .filter(flight -> flight.getDestination().toString().equalsIgnoreCase(destinationInput))
+                .filter(flight -> flight.getDateTime().toLocalDate().equals(LocalDate.parse(dateInput)))
+                .filter(flight -> flight.getSeats() >= passengers)
+                .toList();
+
+        if (matchingFlights.isEmpty()) {
+            System.out.println("No flights available for the specified criteria.");
+        } else {
+            matchingFlights.forEach(flightsService::displayFlightInfo);
+        }
+        return matchingFlights;
     }
-
-
 }
