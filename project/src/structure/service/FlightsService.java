@@ -54,7 +54,7 @@ public class FlightsService implements FlightsServiceCollection {
         flightsdao.saveFlight(flight);
     }
 
-    @Override
+
     public List<Flight> getMatchingFlights(String destinationInput, String dateInput, int passengers) {
         List<Flight> matchingFlights = getFlights().stream()
                 .filter(flight -> flight.getDestination().toString().equalsIgnoreCase(destinationInput))
