@@ -1,15 +1,27 @@
 package structure.service;
 
 import structure.dao.FlightsDao;
+
 import structure.model.Flight;
 
 
 import java.time.LocalDate;
+
+import structure.model.Destination;
+import structure.model.Flight;
+import structure.model.PlaceOfDeparture;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
+
 public class FlightsService implements FlightsServiceCollection {
+
+    private FlightsDao flightsdao;
+
+
+public class FlightsService {
 
     private FlightsDao flightsdao;
 
@@ -29,6 +41,16 @@ public class FlightsService implements FlightsServiceCollection {
     }
 
     public void flightsWithin24Hours() {
+    public  void displayFlightInfo(Flight flight) {
+            DateTimeFormatter dateTimeFormat = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+
+            System.out.println("Місце вильоту: " + flight.getDeparture());
+            System.out.println("Дата та час: " + flight.getDateTime().format(dateTimeFormat));
+            System.out.println("Місце призначення: " + flight.getDestination());
+            System.out.println("Кількість вільних місць: " + flight.getSeats() + "\n");
+
+    }
+    public  void flightsWithin24Hours(){
         List<Flight> flightList = flightsdao.getAllFlights();
 
         System.out.println("Available flights departing from Kyiv in the next 24 hours:");
