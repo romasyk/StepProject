@@ -34,14 +34,4 @@ public class FlightsDao implements FlightsDaoCollection {
     public List<Flight> getFlights(){
         return this.flightList;
     }
-
-import java.util.ArrayList;
-import java.util.List;
-
-public class FlightsDao {
-    public static List<Flight> flightList = new ArrayList<>();
-    public List<Flight> getAllFlights() {
-        return flightList;
-    }
-
 }
