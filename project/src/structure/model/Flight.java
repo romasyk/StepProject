@@ -1,8 +1,12 @@
 package structure.model;
 
+import java.time.LocalDateTime;
+
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+
 
 public class Flight {
     private String id;

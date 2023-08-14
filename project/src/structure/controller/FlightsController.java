@@ -5,11 +5,23 @@ import structure.model.Flight;
 import structure.model.PlaceOfDeparture;
 import structure.service.FlightsService;
 
+import structure.utils.ConsoleUtils;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Scanner;
+
+
+
+
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Scanner;
 
 import static structure.dao.FlightsDao.flightList;
+
 
 public class FlightsController {
     private static FlightsService flightsService;
@@ -23,6 +35,13 @@ public class FlightsController {
         Flight flight1 = new Flight(PlaceOfDeparture.KYIV, "A23", LocalDateTime.of(2023, 11, 12, 12, 45), Destination.TOKIO, 150);
         Flight flight2 = new Flight(PlaceOfDeparture.KYIV, "D24", LocalDateTime.of(2023, 9, 1, 20, 00), Destination.BERLIN, 100);
         Flight flight3 = new Flight(PlaceOfDeparture.KYIV, "Q11", LocalDateTime.of(2023, 8, 13, 15, 30), Destination.TOKIO, 150);
+        Flight flight4 = new Flight(PlaceOfDeparture.KYIV, "A23", LocalDateTime.of(2023, 11, 12, 20, 00), Destination.TOKIO, 150);
+
+        flightsService.saveFlight(flight1);
+        flightsService.saveFlight(flight2);
+        flightsService.saveFlight(flight3);
+        flightsService.saveFlight(flight4);
+
         flightList.add(flight1);
         flightList.add(flight2);
         flightList.add(flight3);
@@ -50,8 +69,13 @@ public class FlightsController {
 
             boolean flightFound = false;
 
+
+            for (int i = 0; i < flightsService.getFlights().size(); i++) {
+                Flight flight = flightsService.getFlights().get(i);
+
             for (int i = 0; i < flightList.size(); i++) {
                 Flight flight = flightList.get(i);
+
                 if (flight.getId().equals(userInput)) {
                     System.out.println("Flight " + (i + 1) + ":");
                     flightsService.displayFlightInfo(flight);
@@ -74,6 +98,17 @@ public class FlightsController {
         System.out.println("Enter date (yyyy-MM-dd): ");
         String dateInput = scanner.nextLine().trim();
 
+
+
+        System.out.println("Enter number of passengers: ");
+        int passengers = ConsoleUtils.getInputNumberValue(scanner,  "It's not a number");
+
+        System.out.println("Available flights matching your criteria:");
+
+        List<Flight> a = flightsService.getMatchingFlights(destinationInput, dateInput, passengers);
+
+    }
+
         System.out.println("Enter number of passengers: ");
         int passengers = scanner.nextInt();
 
@@ -88,6 +123,7 @@ public class FlightsController {
                         .filter(flight -> flight.getSeats() >= passengers)
                         .forEach(flightsService::displayFlightInfo);
     }
+
 
 
 }
