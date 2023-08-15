@@ -2,8 +2,12 @@ package structure.model;
 
 
 public class User {
-    private String passengerName;
+    private String passengerName ;
     private String passengerSurname;
+    public void name(){
+        this.passengerName.toUpperCase().trim();
+        this.passengerSurname.toUpperCase().trim();
+    }
 
     public String getPassengerName() {
         return passengerName;
@@ -22,8 +26,8 @@ public class User {
     }
 
     public User(String passengerName, String passengerSurname) {
-        this.passengerName = passengerName;
-        this.passengerSurname = passengerSurname;
+        this.passengerName = passengerName.toUpperCase().trim();
+        this.passengerSurname = passengerSurname.toUpperCase().trim();
     }
 
 

@@ -12,4 +12,6 @@ public interface BookingService {
     List<Booking> getBookingsByUser(User user);
     List<Booking> getBookings();
     void removeBooking(int id);
+    void downloadBookings();
+    void loadBookings();
 }

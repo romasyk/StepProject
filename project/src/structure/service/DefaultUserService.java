@@ -19,13 +19,23 @@ public class DefaultUserService implements UserService {
     }
 
     @Override
-    public void saveUser(String name, String surname) {
-        userDao.saveUser(name, surname);
+    public void saveUser(User user) {
+        userDao.saveUser(user);
     }
 
     @Override
     public User createUser(String name, String surname) {
         return userDao.createUser(name, surname);
+    }
+
+    @Override
+    public void downloadUsers() {
+        userDao.downloadUsers();
+    }
+
+    @Override
+    public void loadData() {
+userDao.loadData();
     }
 
 

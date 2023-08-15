@@ -39,6 +39,17 @@ public class DefaultBookingService implements BookingService{
     public void removeBooking(int id) {
         bookingDao.removeBooking(id);
     }
+
+    @Override
+    public void downloadBookings() {
+        bookingDao.downloadBookings();
+    }
+
+    @Override
+    public void loadBookings() {
+bookingDao.loadBookings();
+    }
+
     public DefaultBookingService(BookingDao bookingDao, UserService userService, FlightsService flightsService) {
         this.bookingDao = bookingDao;
         this.userService = userService;
