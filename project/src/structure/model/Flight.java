@@ -1,14 +1,11 @@
 package structure.model;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-
-
-public class Flight {
+public class Flight implements Serializable {
     private String id;
     private LocalDateTime dateTime;
     private Destination destination;
@@ -61,5 +58,13 @@ public class Flight {
 
     public void setSeats(int seats) {
         this.seats = seats;
+    }
+
+    @Override
+    public String toString() {
+        return "Місце вильоту: " + departure + "\n" +
+                "Дата та час: " + dateTime.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm")) + "\n" +
+                "Місце призначення: " + destination + "\n" +
+                "Кількість вільних місць: " + seats + "\n";
     }
 }

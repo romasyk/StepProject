@@ -10,4 +10,6 @@ public interface FlightsServiceCollection {
     public void saveFlight(Flight flight);
     public List<Flight> getFlights();
     List<Flight> getMatchingFlights(String destinationInput, String dateInput, int passengers);
+    void saveData();
+    void loadData();
 }
