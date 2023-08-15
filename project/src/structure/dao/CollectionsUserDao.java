@@ -3,6 +3,7 @@ package structure.dao;
 import structure.model.Flight;
 import structure.model.User;
 
+import java.io.*;
 import java.util.List;
 
 public class CollectionsUserDao implements UserDao {
@@ -17,12 +18,12 @@ public class CollectionsUserDao implements UserDao {
     public User getUserByName(String name, String surname) {
         name = name.toUpperCase().trim();
         surname = surname.toUpperCase().trim();
-        for (User user : users) {
+        for (User user : this.users) {
             if (user.getPassengerName().equals(name) && user.getPassengerSurname().equals(surname)) {
                 return user;
             }
         }
-        return new User();
+        return new User("unknown","unknown");
     }
 
     @Override
@@ -31,11 +32,41 @@ public class CollectionsUserDao implements UserDao {
     }
 
     @Override
-    public void saveUser(String name, String surname) {
-        User user = getUserByName(name, surname);
-       if(!users.contains(user)){
-           users.add(createUser(name, surname));
-       }
+    public void saveUser(User user) {
+        if (users.contains(user)) {
+            int index = users.indexOf(user);
+            users.set(index, user);
+        } else {
+            users.add(user);
+        }
     }
 
+    @Override
+    public void setUsers(List<User> users) {
+        this.users  = users;
+    }
+
+    @Override
+    public void loadData(){
+        try {
+            ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("Users.txt"));
+            oos.writeObject(users);
+            oos.close();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+
+    }
+    @Override
+    public void downloadUsers() {
+        try {
+            this.users = (List<User>) new ObjectInputStream(new FileInputStream("Users.txt")).readObject();
+        } catch (FileNotFoundException e){
+            System.out.println("Файл не знайдено");
+        }catch (EOFException e){
+            System.out.println("Даних немає");
+        } catch (ClassNotFoundException | IOException e){
+            e.printStackTrace();
+        }
+    }
 }

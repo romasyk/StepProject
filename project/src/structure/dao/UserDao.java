@@ -8,5 +8,8 @@ public interface UserDao {
      List<User> getUsers();
      User getUserByName(String name, String surname);
      User createUser(String name, String surname);
-     void saveUser(String name, String surname);
+     void saveUser(User user);
+     void setUsers(List<User> users);
+     void downloadUsers();
+     void loadData();
 }

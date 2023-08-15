@@ -10,5 +10,8 @@ public interface BookingDao {
   void create(List<User> users, Flight flight);
     List<Booking> getBookingsByUser(User user);
     List<Booking> getBookings();
+    void setBookings( List<Booking> bookings);
     void removeBooking(int id);
+  void downloadBookings();
+  void loadBookings();
 }

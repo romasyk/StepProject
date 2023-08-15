@@ -38,7 +38,7 @@ public class FlightsController {
         switch (option) {
             case 1 -> flightsService.flightsWithin24Hours();
             case 2 -> findFlightById();
-            case 3 -> findFlightByDetails();
+//            case 3 -> findFlightByDetails();
             default -> System.out.println("This option doesn't exist");
         }
 
@@ -69,24 +69,5 @@ public class FlightsController {
                 System.out.println("There is no such flight");
             }
         }
-    }
-
-    public static void findFlightByDetails() {
-        Scanner scanner = new Scanner(System.in);
-
-        System.out.println("Enter destination: ");
-        String destinationInput = scanner.nextLine().trim();
-
-        System.out.println("Enter date (yyyy-MM-dd): ");
-        String dateInput = scanner.nextLine().trim();
-
-
-        System.out.println("Enter number of passengers: ");
-        int passengers = ConsoleUtils.getInputNumberValue(scanner,  "It's not a number");
-
-        System.out.println("Available flights matching your criteria:");
-
-        List<Flight> a = flightsService.getMatchingFlights(destinationInput, dateInput, passengers);
-
     }
 }

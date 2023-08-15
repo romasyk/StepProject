@@ -4,6 +4,7 @@ import structure.model.Booking;
 import structure.model.Flight;
 import structure.model.User;
 
+import java.io.*;
 import java.util.List;
 
 import static java.util.stream.Collectors.toList;
@@ -26,8 +27,37 @@ private List<Booking> bookings;
     }
 
     @Override
+    public void loadBookings(){
+        try {
+            ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("Bookings.txt"));
+            oos.writeObject(bookings);
+            oos.close();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+
+    }
+    @Override
+    public void downloadBookings() {
+        try {
+            this.bookings = (List<Booking>) new ObjectInputStream(new FileInputStream("Bookings.txt")).readObject();
+        } catch (FileNotFoundException e){
+            System.out.println("Файл не знайдено");
+        }catch (EOFException e){
+            System.out.println("Даних немає");
+        } catch (ClassNotFoundException | IOException e){
+            e.printStackTrace();
+        }
+    }
+
+    @Override
     public List<Booking> getBookings() {
         return bookings;
+    }
+
+    @Override
+    public void setBookings(List<Booking> bookings) {
+        this.bookings = bookings;
     }
 
     @Override
