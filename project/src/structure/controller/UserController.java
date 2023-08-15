@@ -9,4 +9,7 @@ public class UserController {
     Scanner scanner = new Scanner(System.in);
     private UserService userService;
 
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
 }
