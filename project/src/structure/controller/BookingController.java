@@ -8,6 +8,8 @@ import structure.service.UserService;
 import structure.utils.ConsoleUtil;
 import structure.utils.ConsoleUtils;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -25,11 +27,16 @@ public class BookingController {
     }
 
     public void cancelBooking() {
-        int id = ConsoleUtil.getInputNumberValue(scanner, "Введіть номер бронювання: ", "Це не число!!!");
-        if (id >= bookingService.getBookings().size()) {
+        int id = ConsoleUtil.getInputNumberValue(scanner, "Введіть номер бронювання: ", "Це не число!!!") - 1 ;
+        if (id  >= bookingService.getBookings().size()) {
             System.out.println("Такого бронювання немає!!!");
         } else {
-            bookingService.removeBooking(id);
+            try {
+                bookingService.removeBooking(id);
+            }catch (IndexOutOfBoundsException e){
+                System.out.println("Такого бронювання немає!!!");
+            }
+
         }
     }
 
@@ -49,8 +56,25 @@ public class BookingController {
         System.out.println("Enter destination: ");
         String destinationInput = scanner.nextLine().trim();
 
-        System.out.println("Enter date (yyyy-MM-dd): ");
-        String dateInput = scanner.nextLine().trim();
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+        boolean validDate = false;
+
+        String dateInput = null;
+        while (!validDate) {
+            try {
+                System.out.println("Enter date (yyyy-MM-dd): ");
+                dateInput = scanner.nextLine().trim();
+
+                dateFormat.setLenient(false);
+                dateFormat.parse(dateInput);
+
+                validDate = true;
+            } catch (ParseException e) {
+                System.out.println("Invalid date format. Please enter a valid date in yyyy-MM-dd format.");
+            }
+        }
 
 
         System.out.println("Enter number of passengers: ");
@@ -81,7 +105,7 @@ public class BookingController {
         }
 
         bookingService.create(usersBooking, flightsForReservation.get(number - 1));
-        flightsForReservation.get(number - 1).setSeats( flightsForReservation.get(number - 1).getSeats()- passengers);
+        flightsForReservation.get(number - 1).setSeats(flightsForReservation.get(number - 1).getSeats() - passengers);
 
     }
     public void downloadData(){

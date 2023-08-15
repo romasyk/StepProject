@@ -1,8 +1,9 @@
 package structure.model;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Booking {
+public class Booking implements Serializable {
     private Flight flight;
     private List<User> user;
 
