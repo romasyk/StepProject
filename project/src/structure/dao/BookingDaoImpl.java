@@ -5,15 +5,19 @@ import structure.model.Flight;
 import structure.model.User;
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.List;
 
 import static java.util.stream.Collectors.toList;
 
 public class BookingDaoImpl implements BookingDao{
-private List<Booking> bookings;
+private List<Booking> bookings = new ArrayList<>();
 
     @Override
     public void create(List<User> users, Flight flight) {
+        if (this.bookings == null) {
+            this.bookings = new ArrayList<>();
+        }
         bookings.add(new Booking(flight,users));
     }
 
@@ -44,7 +48,6 @@ private List<Booking> bookings;
         } catch (FileNotFoundException e){
             System.out.println("Файл не знайдено");
         }catch (EOFException e){
-            System.out.println("Даних немає");
         } catch (ClassNotFoundException | IOException e){
             e.printStackTrace();
         }

@@ -4,10 +4,11 @@ import structure.model.Flight;
 import structure.model.User;
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class CollectionsUserDao implements UserDao {
-    private List<User> users;
+    private List<User> users ;
 
     @Override
     public List<User> getUsers() {
@@ -18,6 +19,9 @@ public class CollectionsUserDao implements UserDao {
     public User getUserByName(String name, String surname) {
         name = name.toUpperCase().trim();
         surname = surname.toUpperCase().trim();
+        if (this.users == null) {
+            this.users = new ArrayList<>();
+        }
         for (User user : this.users) {
             if (user.getPassengerName().equals(name) && user.getPassengerSurname().equals(surname)) {
                 return user;
@@ -33,12 +37,15 @@ public class CollectionsUserDao implements UserDao {
 
     @Override
     public void saveUser(User user) {
-        if (users.contains(user)) {
-            int index = users.indexOf(user);
-            users.set(index, user);
-        } else {
-            users.add(user);
+        if (this.users == null) {
+            this.users = new ArrayList<>();
         }
+            if (users.contains(user)) {
+                int index = users.indexOf(user);
+                users.set(index, user);
+            } else {
+                users.add(user);
+            }
     }
 
     @Override
@@ -64,7 +71,6 @@ public class CollectionsUserDao implements UserDao {
         } catch (FileNotFoundException e){
             System.out.println("Файл не знайдено");
         }catch (EOFException e){
-            System.out.println("Даних немає");
         } catch (ClassNotFoundException | IOException e){
             e.printStackTrace();
         }

@@ -71,11 +71,11 @@ public class ConsoleApp {
     }
 
     private void showFlightsTable() {
-        // TODO: метод для виведення онлайн-табло рейсів
+       flightsController.flightsWithin24Hours();
     }
 
     private void showFlightDetails() {
-        // TODO: метод для виведення деталей рейсу
+        flightsController.findFlightById();
     }
 
     private void searchAndBookFlight() {
@@ -92,10 +92,13 @@ public class ConsoleApp {
 
     private void downloadData(){
         bookingController.downloadData();
+        flightsController.loadData();
     }
 
     public void saveData(){
         bookingController.saveData();
+        flightsController.saveData();
+
     }
 }
 
