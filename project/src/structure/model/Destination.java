@@ -1,6 +1,8 @@
 package structure.model;
 
-public enum Destination {
+import java.io.Serializable;
+
+public enum Destination implements Serializable {
     TOKIO,
     LONDON,
     BEIJING,

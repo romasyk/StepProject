@@ -24,8 +24,6 @@ public class FlightsService implements FlightsServiceCollection {
         System.out.println("Дата та час: " + flight.getDateTime().format(dateTimeFormat));
         System.out.println("Місце призначення: " + flight.getDestination());
         System.out.println("Кількість вільних місць: " + flight.getSeats() + "\n");
-
-
     }
 
     public void flightsWithin24Hours() {
@@ -76,6 +74,18 @@ public class FlightsService implements FlightsServiceCollection {
     public List<Flight> getFlights() {
         return flightsdao.getFlights();
     }
+    public void saveData() {
+        List<Flight> flightList = getFlights();
+        flightsdao.saveDataLocally(flightList);
+    }
 
-
+    public void loadData() {
+        List<Flight> loadedFlights = flightsdao.loadLocalData();
+        if (!loadedFlights.isEmpty()) {
+            flightsdao.flightList = loadedFlights;
+        }
+    }
 }
+
+
+

@@ -11,27 +11,28 @@ public class FlightsDao implements FlightsDaoCollection {
     public List<Flight> getAllFlights() {
         return flightList;
     }
-    public  void saveFlights(List<Flight> flightList) {
-        try (ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream("flights.txt"))) {
-            outputStream.writeObject(flightList);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public  List<Flight> loadFlights() {
-        List<Flight> flightList = new ArrayList<>();
-        try (ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream("flights.txt"))) {
-            flightList = (List<Flight>) inputStream.readObject();
-        } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-        return flightList;
-    }
     public void saveFlight(Flight flight){
         this.flightList.add(flight);
     }
     public List<Flight> getFlights(){
         return this.flightList;
     }
+    public void saveDataLocally(List<Flight> flightList) {
+        try (ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream("flights.txt"))) {
+            objectOutputStream.writeObject(flightList);
+        } catch (IOException e) {
+            System.out.println("Failed to save data locally: " + e.getMessage());
+        }
+    }
+
+    public List<Flight> loadLocalData() {
+        List<Flight> loadedFlights = new ArrayList<>();
+        try (ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream("flights.txt"))) {
+            loadedFlights = (List<Flight>) objectInputStream.readObject();
+        } catch (IOException | ClassNotFoundException e) {
+            System.out.println("Failed to load data from the local file: " + e.getMessage());
+        }
+        return loadedFlights;
+    }
+
 }

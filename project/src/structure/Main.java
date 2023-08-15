@@ -13,7 +13,7 @@ public class Main {
         FlightsController flightsController = new FlightsController(flightsService);
 
 
-        flightsController.menu();
+        flightsController.savedFlights();
 
     }
 }

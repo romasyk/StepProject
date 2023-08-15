@@ -1,5 +1,7 @@
 package structure.model;
 
-public enum PlaceOfDeparture {
+import java.io.Serializable;
+
+public enum PlaceOfDeparture implements Serializable {
     KYIV
 }
